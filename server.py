@@ -13,6 +13,7 @@ p = pusher.Pusher(
     host=app.config['PUSHER_HOST']
 )
 
+
 @app.route('/')
 def index():
     return app.send_static_file('index.html')

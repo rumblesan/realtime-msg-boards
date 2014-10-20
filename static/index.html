@@ -8,11 +8,15 @@
     </head>
 
     <script src="http://js.staging.pusher.com/3.0.0-pre/pusher.js"></script>
+
     <script src="/static/js/lib/processing.js"></script>
     <script src="/static/js/lib/reqwest.min.js"></script>
     <script src="/static/js/lib/ready.js"></script>
+    <script src="/static/js/lib/ki.min.js"></script>
+
+    <script src="/static/js/form.js"></script>
     <script src="/static/js/word.js"></script>
-    <script src="/static/js/magnets.js"></script>
+    <script src="/static/js/app.js"></script>
     <script>
         domready(function () {
 
@@ -34,28 +38,20 @@
                 httpHost: 'sockjs-megabus.pusher.com'
             };
 
-            document.getElementById("createWord").addEventListener("click", function (e) {
-                var newword = document.getElementById("newWord").value
-                console.log('new word', newword);
-                reqwest({
-                    url: urls.createword + newword,
-                    method: 'post',
-                    success: function (resp) {
-                        console.log('sent word', resp);
-                    }
-                })
-            });
 
+            formBehaviour(urls);
+
+            canvas = document.getElementById('sketch');
+            processing = new Processing(canvas, app.processing);
+            app.createWord('orange');
+            app.createWord('foobar');
 
             pusher = new Pusher(pushercfg.key, pushercfg);
             channel = pusher.subscribe('fridge');
             channel.bind('new-word', function (data) {
-                console.log('got a new word', data)
+                app.createWord(data.word);
             });
 
-
-            canvas = document.getElementById('sketch');
-            processing = new Processing(canvas, magnets);
         })
     </script>
 
