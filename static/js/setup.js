@@ -44,6 +44,7 @@
             App.moveWord(data.word, data.xPos, data.yPos);
         });
 
+        // Add existing words
         for (i = 0; i < words.length; i += 1) {
             App.addWord(words[i].word, words[i].xPos, words[i].yPos);
         }
