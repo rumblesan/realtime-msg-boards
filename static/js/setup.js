@@ -1,5 +1,5 @@
 /*jslint browser: true */
-/*global domready, pusher, createApp, $, Processing, Pusher */
+/*global domready, pusher, createApp, $, Processing, Pusher, words */
 
 (function (w) {
 
@@ -11,7 +11,8 @@
             pusher,
             channel,
             App,
-            urls;
+            urls,
+            i;
 
         urls = {
             createword: '/word/create'
@@ -38,6 +39,10 @@
         channel.bind('new-word', function (data) {
             App.addWord(data.word, data.xPos, data.yPos);
         });
+
+        for (i = 0; i < words.length; i += 1) {
+            App.addWord(words[i].word, words[i].xPos, words[i].yPos);
+        }
 
     });
 

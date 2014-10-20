@@ -63,8 +63,8 @@
 
         App.createWord = function (newWord) {
             var xPos, yPos;
-            xPos = Math.random() * (constants.canvasWidth - 100);
-            yPos = Math.random() * (constants.canvasHeight - 30);
+            xPos = Math.floor(Math.random() * (constants.canvasWidth - 100));
+            yPos = Math.floor(Math.random() * (constants.canvasHeight - 30));
             reqwest({
                 url: urls.createword,
                 method: 'post',

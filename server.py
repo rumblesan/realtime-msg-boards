@@ -1,6 +1,6 @@
 #! /usr/bin/env python
 
-from flask import Flask, request
+from flask import Flask, request, render_template
 import pusher
 
 app = Flask(__name__)
@@ -19,17 +19,23 @@ wordstate = {}
 
 @app.route('/')
 def index():
-    return app.send_static_file('index.html')
+    wordinfo = wordstate.values()
+    print(wordinfo)
+    return render_template('index.html', wordinfo=wordinfo)
 
 
 @app.route('/word/create', methods=['POST'])
 def newWord():
     worddata = request.get_json()
-    newword = worddata['word']
+    newword = str(worddata['word'])
     if newword in wordstate:
         return ("Already exists")
     else:
-        wordstate[newword] = worddata
+        wordstate[newword] = {
+            'word': newword,
+            'xPos': int(worddata['xPos']),
+            'yPos': int(worddata['yPos'])
+        }
         p['fridge'].trigger('new-word', worddata)
         return ("Created %s" % newword, 200)
 

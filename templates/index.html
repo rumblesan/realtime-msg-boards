@@ -18,6 +18,14 @@
     <script src="/static/js/app.js"></script>
     <script src="/static/js/setup.js"></script>
 
+    <script>
+        var words = [
+            {% for w in wordinfo %}
+                {{ w|safe }},
+            {% endfor %}
+        ]
+    </script>
+
     <body>
 
         <h1>Fridge Magnet Poetry</h1>
