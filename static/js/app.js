@@ -46,7 +46,18 @@
             };
 
             processing.mouseReleased = function () {
-                appstate.grabbedWord = null;
+                if (appstate.grabbedWord !== null) {
+                    reqwest({
+                        url: urls.moveword,
+                        method: 'post',
+                        contentType: 'application/json',
+                        data: appstate.grabbedWord.toJSON(),
+                        success: function (resp) {
+                            console.log(resp);
+                        }
+                    });
+                    appstate.grabbedWord = null;
+                }
             };
 
             processing.mouseDragged = function () {
@@ -79,6 +90,16 @@
                 }
             });
 
+        };
+
+        App.moveWord = function (movedWord, xPos, yPos) {
+            var w, i;
+            for (i = 0; i < appstate.words.length; i += 1) {
+                w = appstate.words[i];
+                if (w.getText() === movedWord) {
+                    w.setPosition(xPos, yPos);
+                }
+            }
         };
 
         return App;

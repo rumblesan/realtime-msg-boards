@@ -20,7 +20,6 @@ wordstate = {}
 @app.route('/')
 def index():
     wordinfo = wordstate.values()
-    print(wordinfo)
     return render_template('index.html', wordinfo=wordinfo)
 
 
@@ -40,10 +39,17 @@ def newWord():
         return ("Created %s" % newword, 200)
 
 
-@app.route('/words')
-def getWords():
-    print(wordstate)
-    return "words", 200
+@app.route('/word/move', methods=['POST'])
+def moveWord():
+    worddata = request.get_json()
+    newword = str(worddata['word'])
+    if newword not in wordstate:
+        return ("Doesn't exist", 404)
+    else:
+        wordstate[newword]['xPos'] = int(worddata['xPos'])
+        wordstate[newword]['yPos'] = int(worddata['yPos'])
+        p['fridge'].trigger('move-word', worddata)
+        return ("Moved %s" % newword, 200)
 
 
 if __name__ == '__main__':

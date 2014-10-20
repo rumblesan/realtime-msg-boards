@@ -15,7 +15,8 @@
             i;
 
         urls = {
-            createword: '/word/create'
+            createword: '/word/create',
+            moveword: '/word/move',
         };
 
         pushercfg = {
@@ -37,8 +38,13 @@
 
         pusher = new Pusher(pushercfg.key, pushercfg);
         channel = pusher.subscribe('fridge');
+
         channel.bind('new-word', function (data) {
             App.addWord(data.word, data.xPos, data.yPos);
+        });
+
+        channel.bind('move-word', function (data) {
+            App.moveWord(data.word, data.xPos, data.yPos);
         });
 
         for (i = 0; i < words.length; i += 1) {

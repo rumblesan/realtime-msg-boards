@@ -60,6 +60,14 @@
             return ((xCoord >= x1) && (xCoord <= x2) && (yCoord >= y1) && (yCoord <= y2));
         };
 
+        word.toJSON = function () {
+            return JSON.stringify({
+                word: wordstate.text,
+                xPos: wordstate.xPos,
+                yPos: wordstate.yPos
+            });
+        };
+
         return word;
 
     };
