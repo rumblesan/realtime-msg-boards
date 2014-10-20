@@ -5,8 +5,8 @@ app = Flask(__name__)
 
 
 @app.route('/')
-def hello():
-    return 'Hello, World!'
+def index():
+    return app.send_static_file('index.html')
 
 
 @app.route('/word/<newword>', methods=['POST'])
