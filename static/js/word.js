@@ -61,11 +61,11 @@
         };
 
         word.toJSON = function () {
-            return JSON.stringify({
+            return {
                 word: wordstate.text,
                 xPos: wordstate.xPos,
                 yPos: wordstate.yPos
-            });
+            };
         };
 
         return word;

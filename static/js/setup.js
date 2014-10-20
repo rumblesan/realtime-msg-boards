@@ -1,5 +1,5 @@
 /*jslint browser: true */
-/*global domready, pusher, createApp, $, Processing, Pusher, words */
+/*global domready, pusher, createApp, createServer, $, Processing, Pusher, words */
 
 (function (w) {
 
@@ -11,13 +11,8 @@
             pusher,
             channel,
             App,
-            urls,
+            Server,
             i;
-
-        urls = {
-            createword: '/word/create',
-            moveword: '/word/move',
-        };
 
         pushercfg = {
             app: '93491',
@@ -26,7 +21,9 @@
             httpHost: 'sockjs-megabus.pusher.com'
         };
 
-        App = createApp({}, urls);
+        Server = createServer({});
+
+        App = createApp({}, Server);
 
         $('#createWord').on('click', function (e) {
             App.createWord($('#newWord')[0].value);

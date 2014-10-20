@@ -39,8 +39,8 @@ def newWord():
         return ("Created %s" % newword, 200)
 
 
-@app.route('/word/move', methods=['POST'])
-def moveWord():
+@app.route('/word/update', methods=['POST'])
+def updateWord():
     worddata = request.get_json()
     newword = str(worddata['word'])
     if newword not in wordstate:
@@ -49,7 +49,7 @@ def moveWord():
         wordstate[newword]['xPos'] = int(worddata['xPos'])
         wordstate[newword]['yPos'] = int(worddata['yPos'])
         p['fridge'].trigger('move-word', worddata)
-        return ("Moved %s" % newword, 200)
+        return ("Updated %s" % newword, 200)
 
 
 if __name__ == '__main__':

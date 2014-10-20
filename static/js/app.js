@@ -1,9 +1,9 @@
 /*jslint browser: true */
-/*global word, reqwest */
+/*global word */
 
 (function (w) {
 
-    w.createApp = function (cfg, urls) {
+    w.createApp = function (cfg, Server) {
 
         var App, appstate, constants;
 
@@ -47,15 +47,7 @@
 
             processing.mouseReleased = function () {
                 if (appstate.grabbedWord !== null) {
-                    reqwest({
-                        url: urls.moveword,
-                        method: 'post',
-                        contentType: 'application/json',
-                        data: appstate.grabbedWord.toJSON(),
-                        success: function (resp) {
-                            console.log(resp);
-                        }
-                    });
+                    Server.Word.update(appstate.grabbedWord.toJSON());
                     appstate.grabbedWord = null;
                 }
             };
@@ -76,20 +68,11 @@
             var xPos, yPos;
             xPos = Math.floor(Math.random() * (constants.canvasWidth - 100));
             yPos = Math.floor(Math.random() * (constants.canvasHeight - 30));
-            reqwest({
-                url: urls.createword,
-                method: 'post',
-                contentType: 'application/json',
-                data: JSON.stringify({
-                    word: newWord,
-                    xPos: xPos,
-                    yPos: yPos
-                }),
-                success: function (resp) {
-                    console.log(resp);
-                }
+            Server.Word.create({
+                word: newWord,
+                xPos: xPos,
+                yPos: yPos
             });
-
         };
 
         App.moveWord = function (movedWord, xPos, yPos) {
