@@ -14,6 +14,9 @@ p = pusher.Pusher(
 )
 
 
+wordstate = {}
+
+
 @app.route('/')
 def index():
     return app.send_static_file('index.html')
@@ -21,10 +24,20 @@ def index():
 
 @app.route('/word/create', methods=['POST'])
 def newWord():
-    data = request.get_json()
-    newword = data['newword']
-    p['fridge'].trigger('new-word', {'word': newword})
-    return ("Created %s" % newword, 200)
+    worddata = request.get_json()
+    newword = worddata['word']
+    if newword in wordstate:
+        return ("Already exists")
+    else:
+        wordstate[newword] = worddata
+        p['fridge'].trigger('new-word', worddata)
+        return ("Created %s" % newword, 200)
+
+
+@app.route('/words')
+def getWords():
+    print(wordstate)
+    return "words", 200
 
 
 if __name__ == '__main__':
