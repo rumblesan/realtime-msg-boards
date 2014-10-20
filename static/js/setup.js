@@ -29,6 +29,7 @@
 
         $('#createWord').on('click', function (e) {
             App.createWord($('#newWord')[0].value);
+            $('#newWord')[0].value = '';
         });
 
         canvas = document.getElementById('sketch');
