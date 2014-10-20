@@ -3,9 +3,9 @@
 
 (function (w) {
 
-    var word = {};
+    var Word = {};
 
-    word.create = function (text, startXPos, startYPos, textSize) {
+    Word.create = function (text, startXPos, startYPos, textSize) {
 
         var word, wordstate;
 
@@ -62,7 +62,7 @@
 
         word.toJSON = function () {
             return {
-                word: wordstate.text,
+                text: wordstate.text,
                 xPos: wordstate.xPos,
                 yPos: wordstate.yPos
             };
@@ -72,7 +72,7 @@
 
     };
 
-    w.word = word;
+    w.Word = Word;
 
 }(window));
 

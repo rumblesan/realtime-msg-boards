@@ -1,5 +1,5 @@
 /*jslint browser: true */
-/*global word */
+/*global Word */
 
 (function (w) {
 
@@ -60,26 +60,26 @@
 
         };
 
-        App.addWord = function (newWord, xPos, yPos) {
-            appstate.words.push(word.create(newWord, xPos, yPos, constants.textSize));
+        App.addWord = function (text, xPos, yPos) {
+            appstate.words.push(Word.create(text, xPos, yPos, constants.textSize));
         };
 
-        App.createWord = function (newWord) {
+        App.createWord = function (text) {
             var xPos, yPos;
             xPos = Math.floor(Math.random() * (constants.canvasWidth - 100));
             yPos = Math.floor(Math.random() * (constants.canvasHeight - 30));
             Server.Word.create({
-                word: newWord,
+                text: text,
                 xPos: xPos,
                 yPos: yPos
             });
         };
 
-        App.moveWord = function (movedWord, xPos, yPos) {
+        App.updateWord = function (text, xPos, yPos) {
             var w, i;
             for (i = 0; i < appstate.words.length; i += 1) {
                 w = appstate.words[i];
-                if (w.getText() === movedWord) {
+                if (w.getText() === text) {
                     w.setPosition(xPos, yPos);
                 }
             }

@@ -37,16 +37,16 @@
         channel = pusher.subscribe('fridge');
 
         channel.bind('new-word', function (data) {
-            App.addWord(data.word, data.xPos, data.yPos);
+            App.addWord(data.text, data.xPos, data.yPos);
         });
 
-        channel.bind('move-word', function (data) {
-            App.moveWord(data.word, data.xPos, data.yPos);
+        channel.bind('update-word', function (data) {
+            App.updateWord(data.text, data.xPos, data.yPos);
         });
 
         // Add existing words
         for (i = 0; i < words.length; i += 1) {
-            App.addWord(words[i].word, words[i].xPos, words[i].yPos);
+            App.addWord(words[i].text, words[i].xPos, words[i].yPos);
         }
 
     });
