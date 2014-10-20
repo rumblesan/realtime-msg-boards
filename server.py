@@ -10,8 +10,9 @@ def index():
 
 
 @app.route('/word/<newword>', methods=['POST'])
-def newWord(word):
-    print(word)
+def newWord(newword):
+    print(newword)
+    return "Created %s" % newword
 
 
 if __name__ == '__main__':

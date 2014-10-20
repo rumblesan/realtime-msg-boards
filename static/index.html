@@ -9,13 +9,35 @@
 
     <script src="http://js.staging.pusher.com/3.0.0-pre/pusher.js"></script>
     <script src="/static/js/lib/processing.js"></script>
+    <script src="/static/js/lib/reqwest.min.js"></script>
     <script src="/static/js/lib/ready.js"></script>
     <script src="/static/js/word.js"></script>
     <script src="/static/js/magnets.js"></script>
     <script>
         domready(function () {
-            var canvas = document.getElementById('sketch');
-            var processing = new Processing(canvas, magnets);
+
+            var canvas,
+                processing,
+                urls;
+
+            urls = {
+                createword: '/word/'
+            };
+
+            document.getElementById("createWord").addEventListener("click", function (e) {
+                var newword = document.getElementById("newWord").value
+                console.log('new word', newword);
+                reqwest({
+                    url: urls.createword + newword,
+                    method: 'post',
+                    success: function (resp) {
+                        console.log('sent word', resp);
+                    }
+                })
+            });
+
+            canvas = document.getElementById('sketch');
+            processing = new Processing(canvas, magnets);
         })
     </script>
 
@@ -23,6 +45,10 @@
 
         <h1>Fridge Magnet Poetry</h1>
         <canvas id="sketch" ></canvas>
+        <form onSubmit="return false" >
+            New Word: <input id="newWord" type="text" name="word"><br>
+            <input id="createWord" type="submit" value="Create">
+        </form>
 
     </body>
 
