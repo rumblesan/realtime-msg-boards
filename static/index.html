@@ -14,7 +14,6 @@
     <script src="/static/js/lib/ready.js"></script>
     <script src="/static/js/lib/ki.min.js"></script>
 
-    <script src="/static/js/form.js"></script>
     <script src="/static/js/word.js"></script>
     <script src="/static/js/app.js"></script>
     <script>
@@ -25,6 +24,7 @@
                 pushercfg,
                 pusher,
                 channel,
+                App,
                 urls;
 
             urls = {
@@ -38,18 +38,19 @@
                 httpHost: 'sockjs-megabus.pusher.com'
             };
 
+            App = createApp({}, urls);
 
-            formBehaviour(urls);
+            $('#createWord').on('click', function (e) {
+                App.createWord($('#newWord')[0].value)
+            });
 
             canvas = document.getElementById('sketch');
-            processing = new Processing(canvas, app.processing);
-            app.createWord('orange');
-            app.createWord('foobar');
+            processing = new Processing(canvas, App.processing);
 
             pusher = new Pusher(pushercfg.key, pushercfg);
             channel = pusher.subscribe('fridge');
             channel.bind('new-word', function (data) {
-                app.createWord(data.word);
+                App.addWord(data.word, data.xPos, data.yPos);
             });
 
         })
