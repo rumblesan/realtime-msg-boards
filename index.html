@@ -9,10 +9,12 @@
 
     <script src="/js/lib/processing.js"></script>
     <script src="/js/lib/ready.js"></script>
+    <script src="/js/word.js"></script>
     <script src="/js/magnets.js"></script>
     <script>
         domready(function () {
-            magnets('');
+            var canvas = document.getElementById('sketch');
+            var processing = new Processing(canvas, magnets);
         })
     </script>
 
