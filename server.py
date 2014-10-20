@@ -1,6 +1,6 @@
 #! /usr/bin/env python
 
-from flask import Flask
+from flask import Flask, request
 import pusher
 
 app = Flask(__name__)
@@ -19,9 +19,10 @@ def index():
     return app.send_static_file('index.html')
 
 
-@app.route('/word/<newword>', methods=['POST'])
-def newWord(newword):
-    print(newword)
+@app.route('/word/create', methods=['POST'])
+def newWord():
+    data = request.get_json()
+    newword = data['newword']
     p['fridge'].trigger('new-word', {'word': newword})
     return ("Created %s" % newword, 200)
 

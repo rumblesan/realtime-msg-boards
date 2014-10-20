@@ -7,10 +7,14 @@
 
         $('#createWord').on('click', function (e) {
             reqwest({
-                url: urls.createword + $('#newWord')[0].value,
+                url: urls.createword,
                 method: 'post',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    newword: $('#newWord')[0].value
+                }),
                 success: function (resp) {
-                    console.log('sent word', resp);
+                    console.log('Sent word', resp);
                 }
             });
         });
