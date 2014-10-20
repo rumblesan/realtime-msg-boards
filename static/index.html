@@ -18,10 +18,20 @@
 
             var canvas,
                 processing,
+                pushercfg,
+                pusher,
+                channel,
                 urls;
 
             urls = {
                 createword: '/word/'
+            };
+
+            pushercfg = {
+                app: '93491',
+                key: '4a4d7ef213beae63ed74',
+                wsHost: 'ws-megabus.pusher.com',
+                httpHost: 'sockjs-megabus.pusher.com'
             };
 
             document.getElementById("createWord").addEventListener("click", function (e) {
@@ -35,6 +45,14 @@
                     }
                 })
             });
+
+
+            pusher = new Pusher(pushercfg.key, pushercfg);
+            channel = pusher.subscribe('fridge');
+            channel.bind('new-word', function (data) {
+                console.log('got a new word', data)
+            });
+
 
             canvas = document.getElementById('sketch');
             processing = new Processing(canvas, magnets);
