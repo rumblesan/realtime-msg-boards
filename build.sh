@@ -10,7 +10,7 @@ die() {
 
 
 main () {
-    tsc ./typescript/App.ts --out ./static/js/app.js
+    tsc ./typescript/App.ts --out ./static/js/app.js --noImplicitAny
 }
 
 main "$@"
