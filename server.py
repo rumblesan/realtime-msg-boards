@@ -4,7 +4,7 @@ from flask import Flask, request, render_template
 import pusher
 
 app = Flask(__name__)
-app.config.from_object('config/fridge-cfg')
+app.config.from_object('fridge-cfg')
 
 p = pusher.Pusher(
     app_id=app.config['PUSHER_APP_ID'],
