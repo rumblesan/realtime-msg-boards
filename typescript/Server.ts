@@ -1,6 +1,5 @@
 /// <reference path="Word.ts" />
-
-declare var reqwest: any;
+/// <reference path="modules/reqwest.d.ts" />
 
 interface ServerComs {
     Word: ServerWordComs
