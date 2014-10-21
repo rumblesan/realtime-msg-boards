@@ -1,9 +1,9 @@
 /// <reference path="Fridge.ts" />
 /// <reference path="Server.ts" />
+/// <reference path="modules/Pusher.d.ts" />
 
 declare var $: any;
 declare var Processing: any;
-declare var Pusher: any;
 declare var words: any;
 
 $(function () {
@@ -29,7 +29,7 @@ $(function () {
     );
 
     var pusher = new Pusher(pushercfg.key, pushercfg);
-    var channel = pusher.subscribe('fridge');
+    var channel: PublicChannel = pusher.subscribe('fridge');
 
     channel.bind('new-word', function (data) {
         fridge.addWord(data.text, data.xPos, data.yPos);
