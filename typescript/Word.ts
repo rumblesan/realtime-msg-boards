@@ -16,7 +16,7 @@ class Word {
     constructor (text: string, xPos: number, yPos: number, textSize: number) {
         this.text = text;
         this.position = {x: xPos, y: yPos};
-        this.width = (text.length * 15),
+        this.width = (text.length * 15) + 5,
         this.height = textSize + 5
     }
 
