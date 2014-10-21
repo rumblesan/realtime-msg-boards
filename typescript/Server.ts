@@ -1,40 +1,57 @@
 /// <reference path="Word.ts" />
 /// <reference path="modules/reqwest.d.ts" />
 
-interface ServerComs {
-    Word: ServerWordComs
+interface ServerComsI {
+    Word: ServerWordComsI
 }
 
-interface ServerWordComs {
+interface ServerWordComsI {
     create(data: WordData): void
     update(data: WordData): void
 }
 
-module Server {
+class ServerComs implements ServerComsI {
 
-    var urls = {
-        createword: '/word/create',
-        updateword: '/word/update',
-    };
+    Word: WordComs;
 
-    export module Word {
-        export function create(data: WordData): void {
-            reqwest({
-                url: urls.createword,
-                method: 'post',
-                contentType: 'application/json',
-                data: JSON.stringify(data)
-            });
+    constructor(boardName: string) {
+        this.Word = new WordComs(boardName);
+    }
+
+}
+
+interface WordComsUrls {
+    create: string;
+    update: string;
+}
+
+class WordComs implements ServerWordComsI {
+
+    urls: WordComsUrls;
+
+    constructor(boardName: string) {
+        this.urls = {
+            create: '/board/' + boardName + '/word/create',
+            update: '/board/' + boardName + '/word/update',
         }
+    }
 
-        export function update(data: WordData): void {
-            reqwest({
-                url: urls.updateword,
-                method: 'post',
-                contentType: 'application/json',
-                data: JSON.stringify(data)
-            });
-        }
+    create(data: WordData): void {
+        reqwest({
+            url: this.urls.create,
+            method: 'post',
+            contentType: 'application/json',
+            data: JSON.stringify(data)
+        });
+    }
+
+    update(data: WordData): void {
+        reqwest({
+            url: this.urls.update,
+            method: 'post',
+            contentType: 'application/json',
+            data: JSON.stringify(data)
+        });
     }
 
 }

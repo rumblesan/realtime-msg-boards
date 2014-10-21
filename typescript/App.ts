@@ -5,6 +5,7 @@
 
 declare var Processing: any;
 declare var words: any;
+declare var boardName: string;
 
 $(function () {
 
@@ -16,7 +17,8 @@ $(function () {
     };
 
 
-    var fridge = new Fridge(Server);
+    var server = new ServerComs(boardName);
+    var fridge = new Fridge(server);
 
     $('#createWord').on('click', function (e: Event) {
         var el = $<HTMLInputElement>('#newWord')[0];
@@ -30,7 +32,7 @@ $(function () {
     );
 
     var pusher = new Pusher(pushercfg.key, pushercfg);
-    var channel: PublicChannel = pusher.subscribe('fridge');
+    var channel: PublicChannel = pusher.subscribe(boardName);
 
     channel.bind('new-word', function (data: WordData) {
         fridge.addWord(data.text, data.xPos, data.yPos);
