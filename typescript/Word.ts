@@ -55,8 +55,6 @@ class Word {
         var x2 = this.position.x + this.width;
         var y1 = this.position.y;
         var y2 = this.position.y + this.height;
-        console.log(coords);
-        console.log(x1, x2, y1, y2);
         return (
             (coords.x >= x1) &&
             (coords.x <= x2) &&
