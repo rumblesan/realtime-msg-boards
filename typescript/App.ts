@@ -18,7 +18,7 @@ $(function () {
 
     var fridge = new Fridge(Server);
 
-    $('#createWord').on('click', function (e) {
+    $('#createWord').on('click', function (e: Event) {
         fridge.createWord($('#newWord')[0].value);
         $('#newWord')[0].value = '';
     });
@@ -31,11 +31,11 @@ $(function () {
     var pusher = new Pusher(pushercfg.key, pushercfg);
     var channel: PublicChannel = pusher.subscribe('fridge');
 
-    channel.bind('new-word', function (data) {
+    channel.bind('new-word', function (data: WordData) {
         fridge.addWord(data.text, data.xPos, data.yPos);
     });
 
-    channel.bind('update-word', function (data) {
+    channel.bind('update-word', function (data: WordData) {
         fridge.updateWord(data.text, data.xPos, data.yPos);
     });
 
