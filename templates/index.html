@@ -16,11 +16,12 @@
     <script src="/static/js/app.js"></script>
 
     <script>
+        var board = "{{ board_name }}";
         var words = [
             {% for w in wordinfo %}
                 {{ w|safe }},
             {% endfor %}
-        ]
+        ];
     </script>
 
     <body>
