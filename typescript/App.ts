@@ -19,8 +19,9 @@ $(function () {
     var fridge = new Fridge(Server);
 
     $('#createWord').on('click', function (e: Event) {
-        fridge.createWord($('#newWord')[0].value);
-        $('#newWord')[0].value = '';
+        var el = $<HTMLInputElement>('#newWord')[0];
+        fridge.createWord(el.value);
+        el.value = '';
     });
 
     var processing = new Processing(

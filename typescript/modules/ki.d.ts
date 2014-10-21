@@ -5,11 +5,12 @@ declare function $(
 ): void;
 
 // CSS selector
-declare function $(cssSelector: string): KiContainer;
+declare function $<E>(cssSelector: string): KiContainer<E>;
 
-interface KiContainer {
-    on(eventName: string, callback: (e: Event) => void)
-    off(eventName: string, callback: (e: Event) => void)
-    each(element: HTMLScriptElement, i: number)
+interface KiContainer<E> {
+    [index: number]: E;
+    on(eventName: string, callback: (e: Event) => void): void;
+    off(eventName: string, callback: (e: Event) => void): void;
+    each<R>(func: Function): KiContainer<R>;
 }
 
