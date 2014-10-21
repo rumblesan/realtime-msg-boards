@@ -1,8 +1,8 @@
 /// <reference path="Fridge.ts" />
 /// <reference path="Server.ts" />
 /// <reference path="modules/Pusher.d.ts" />
+/// <reference path="modules/ki.d.ts" />
 
-declare var $: any;
 declare var Processing: any;
 declare var words: any;
 
