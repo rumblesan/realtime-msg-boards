@@ -1,4 +1,4 @@
-/// <reference path="Fridge.ts" />
+/// <reference path="Boards.ts" />
 /// <reference path="Server.ts" />
 /// <reference path="modules/Pusher.d.ts" />
 /// <reference path="modules/ki.d.ts" />
@@ -18,33 +18,33 @@ $(function () {
 
 
     var server = new ServerComs(boardName);
-    var fridge = new Fridge(server);
+    var boards = new Boards(server);
 
     $('#createWord').on('click', function (e: Event) {
         var el = $<HTMLInputElement>('#newWord')[0];
-        fridge.createWord(el.value);
+        boards.createWord(el.value);
         el.value = '';
     });
 
     var processing = new Processing(
         document.getElementById('sketch'),
-        fridge.createSketch()
+        boards.createSketch()
     );
 
     var pusher = new Pusher(pushercfg.key, pushercfg);
     var channel: PublicChannel = pusher.subscribe(boardName);
 
     channel.bind('new-word', function (data: WordData) {
-        fridge.addWord(data.text, data.xPos, data.yPos);
+        boards.addWord(data.text, data.xPos, data.yPos);
     });
 
     channel.bind('update-word', function (data: WordData) {
-        fridge.updateWord(data.text, data.xPos, data.yPos);
+        boards.updateWord(data.text, data.xPos, data.yPos);
     });
 
     // Add existing words
     for (var i = 0; i < words.length; i += 1) {
-        fridge.addWord(words[i].text, words[i].xPos, words[i].yPos);
+        boards.addWord(words[i].text, words[i].xPos, words[i].yPos);
     }
 
 });

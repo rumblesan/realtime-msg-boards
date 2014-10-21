@@ -12,7 +12,7 @@ interface ProcessingProgram {
     (processing: any): void
 }
 
-class Fridge {
+class Boards {
 
     static constants = {
         textSize: 30,
@@ -32,15 +32,15 @@ class Fridge {
 
     addWord(text: string, xPos: number, yPos: number): number {
         return this.words.push(
-            new Word(text, xPos, yPos, Fridge.constants.textSize)
+            new Word(text, xPos, yPos, Boards.constants.textSize)
         );
     }
 
     createWord(text: string): void {
         this.server.Word.create({
             text: text,
-            xPos: Math.floor(Math.random() * (Fridge.constants.canvasWidth - 100)),
-            yPos: Math.floor(Math.random() * (Fridge.constants.canvasHeight - 30))
+            xPos: Math.floor(Math.random() * (Boards.constants.canvasWidth - 100)),
+            yPos: Math.floor(Math.random() * (Boards.constants.canvasHeight - 30))
         });
     }
 
@@ -59,12 +59,12 @@ class Fridge {
 
             processing.setup = function () {
                 processing.size(
-                    Fridge.constants.canvasWidth,
-                    Fridge.constants.canvasHeight
+                    Boards.constants.canvasWidth,
+                    Boards.constants.canvasHeight
                 );
                 processing.background(255);
 
-                processing.textSize(Fridge.constants.textSize);
+                processing.textSize(Boards.constants.textSize);
             };
 
             processing.draw = function () {

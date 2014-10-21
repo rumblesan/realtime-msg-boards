@@ -6,7 +6,7 @@ import random
 import string
 
 app = Flask(__name__)
-app.config.from_object('fridge-cfg')
+app.config.from_object('boards-cfg')
 
 p = pusher.Pusher(
     app_id=app.config['PUSHER_APP_ID'],
