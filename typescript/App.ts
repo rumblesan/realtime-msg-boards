@@ -1,13 +1,12 @@
 /// <reference path="Fridge.ts" />
 /// <reference path="Server.ts" />
 
-declare var domready: any;
 declare var $: any;
 declare var Processing: any;
 declare var Pusher: any;
 declare var words: any;
 
-domready(function () {
+$(function () {
 
     var pushercfg = {
         app: '93491',
